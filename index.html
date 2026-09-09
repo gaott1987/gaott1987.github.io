@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explorer of Systems · Tingting Gao</title>
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fcf8f0;
+            color: #2c241e;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #dcd5cc;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .nav a {
+            color: #b05e2a;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav a:hover {
+            color: #8a4020;
+            text-decoration: underline;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Hero 区域 ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #2c241e;
+        }
+
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: #8a7a6a;
+            font-weight: 400;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            margin-top: 0.3rem;
+            background: #b05e2a;
+            color: #fcf8f0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.15rem 0.9rem;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            width: fit-content;
+        }
+
+        /* ===== Explorations 卡片 ===== */
+        .explorations {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin: 2.5rem 0 4rem 0;
+            max-width: 100%;
+        }
+
+        .exploration-card {
+            background: #ffffff;
+            border: 1px solid #dcd5cc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .exploration-card:hover {
+            border-color: #b05e2a;
+        }
+
+        .exploration-card .emoji {
+            font-size: 1.8rem;
+        }
+
+        .exploration-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0.4rem 0 0.1rem 0;
+            color: #2c241e;
+        }
+
+        .exploration-card .zh-title {
+            font-size: 0.8rem;
+            color: #b8a99a;
+            font-weight: 300;
+            margin-bottom: 0.3rem;
+        }
+
+        .exploration-card .status {
+            font-size: 0.7rem;
+            color: #8a7a6a;
+            background: #f0ebe4;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 0.4rem 0 0.6rem 0;
+        }
+
+        .exploration-card .status .zh-hint {
+            font-size: 0.6rem;
+            color: #b8a99a;
+        }
+
+        .exploration-card .description {
+            font-size: 0.95rem;
+            color: #2c241e;
+            margin-bottom: 0.6rem;
+        }
+
+        .exploration-card .description .zh-summary {
+            display: block;
+            font-size: 0.85rem;
+            color: #8a7a6a;
+            margin-top: 0.2rem;
+        }
+
+        .exploration-card .arch-image {
+            width: 100%;
+            margin: 0.8rem 0;
+            border-radius: 8px;
+            border: 1px solid #e8e0d8;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .exploration-card .arch-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .exploration-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.4rem;
+        }
+
+        .exploration-card .tags span {
+            background: #f0ebe4;
+            color: #5a4c3e;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.7rem;
+            border-radius: 12px;
+            border: 1px solid #dcd5cc;
+        }
+
+        /* ===== Idea Lab ===== */
+        .idea-lab {
+            margin: 4rem 0 2.5rem 0;
+            padding-top: 0.5rem;
+        }
+        .idea-lab .zh-hint {
+            font-size: 0.8rem;
+            color: #b8a99a;
+            font-weight: 300;
+        }
+        .idea-lab .sub {
+            color: #8a7a6a;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        .idea-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            padding: 0.8rem 0;
+            border-top: 1px solid #dcd5cc;
+        }
+        .idea-item:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .idea-lab h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c241e;
+            margin-bottom: 0.1rem;
+        }
+
+        .idea-lab .zh-hint {
+            font-size: 0.8rem;
+            color: #b8a99a;
+            font-weight: 300;
+        }
+
+        .idea-lab .sub {
+            color: #8a7a6a;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .idea-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            padding: 0.8rem 0;
+            border-top: 1px solid #dcd5cc;
+        }
+
+        .idea-item:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .idea-item .num {
+            color: #b05e2a;
+            font-weight: 500;
+            font-size: 0.85rem;
+            min-width: 1.8rem;
+        }
+
+        .idea-item .content {
+            color: #2c241e;
+            font-size: 0.95rem;
+        }
+
+        .idea-item .content .zh-hint {
+            display: block;
+            font-size: 0.85rem;
+            color: #8a7a6a;
+            margin-top: 0.1rem;
+        }
+
+        .idea-item .content strong {
+            color: #2c241e;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            margin-top: 3.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #dcd5cc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: #8a7a6a;
+        }
+
+        .footer a {
+            color: #b05e2a;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #8a4020;
+            text-decoration: underline;
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            padding: 2rem;
+        }
+        
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        
+        .lightbox-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            cursor: default;
+            background: #fff;
+            padding: 0.5rem;
+        }
+        
+        .lightbox-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10000;
+            font-weight: 300;
+            line-height: 1;
+            transition: transform 0.2s ease;
+        }
+        
+        .lightbox-close:hover {
+            transform: scale(1.2);
+        }
+        
+        .lightbox-caption {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.4);
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(2px);
+            z-index: 10000;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .idea-item {
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== 导航 ===== -->
+    <nav class="nav">
+        <span style="font-weight:500; color:#2c241e;">TINGTING GAO</span>
+        <div class="nav-links">
+            <a href="#explorations">Prototype Workshop</a>
+            <a href="#idea-lab">Idea Lab</a>
+            <a href="https://github.com/gaott1987" target="_blank">GitHub</a>
+        </div>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <header class="hero">
+        <h1>Explore. Build. Iterate.</h1>
+        <div class="tagline">Physics, Data &amp; AI · Human-Centered Systems</div>
+        <span class="badge">📍 Open to opportunities</span>
+    </header>
+
+    <!-- ===== Explorations 区域 ===== -->
+    <section id="explorations">
+        <h2 style="font-size:1.5rem; font-weight:600; color:#2c241e; margin-bottom:0.2rem;">
+            Prototype Workshop
+            <span style="font-size:0.8rem; color:#b8a99a; font-weight:300; margin-left:0.5rem;">· 原型工坊</span>
+        </h2>
+        <div style="color:#8a7a6a; font-size:0.9rem; margin-bottom:1.5rem;">Working prototypes in progress</div>
+
+        <div class="explorations">
+
+            <!-- 卡片 1：Elder Mate -->
+            <div class="exploration-card">
+                <div class="emoji">🧓</div>
+                <h3>Elder Mate</h3>
+                <div class="zh-title">银发伙伴</div>
+                <span class="status">Working Prototype <span class="zh-hint">· 可运行原型</span></span>
+                <p class="description">
+                    I built a voice‑controlled assistant to explore how speech can help elderly users stay independent and safe at home.
+                    <span class="zh-summary">我做了一个语音控制助手，探索如何用对话帮助老年人更独立、更安心地生活。</span>
+                </p>
+                <img 
+                    class="arch-image" 
+                    src="images/elder-mate_architecture.png" 
+                    alt="Elder Mate Architecture"
+                    onclick="openLightbox(this.src, 'Elder Mate · System Architecture')"
+                />
+                <div class="tags">
+                    <span>ESP32</span><span>Raspberry Pi</span><span>Home Assistant</span><span>LLM</span><span>Edge AI</span>
+                </div>
+            </div>
+
+            <!-- 卡片 2：Cat Feeder -->
+            <div class="exploration-card">
+                <div class="emoji">🐱</div>
+                <h3>Cat Face Recognition Feeder</h3>
+                <div class="zh-title">猫脸识别喂食器</div>
+                <span class="status">Model Training & Validation <span class="zh-hint">· 模型训练与验证</span></span>
+                <p class="description">
+                    I trained a cat‑face recognition model to explore how edge AI can enable personalized feeding — hardware integration is the next step.
+                    <span class="zh-summary">我训练了一个猫脸识别模型，探索边缘 AI 如何实现个性化喂食 —— 硬件集成是下一步。</span>
+                </p>
+                <img 
+                    class="arch-image" 
+                    src="" 
+                    alt="Cat Feeder Architecture"
+                    onclick="openLightbox(this.src, 'Cat Feeder · System Architecture')"
+                />
+                <div class="tags">
+                    <span>YOLOv8</span><span>Python</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== Idea Lab ===== -->
+    <section class="idea-lab" id="idea-lab">
+        <h2>
+            💡 Idea Lab
+            <span class="zh-hint">· 想法实验室</span>
+        </h2>
+        <div class="sub">Product &amp; System Design Thinking · Continuously Updated</div>
+
+        <div class="idea-item">
+            <span class="num">01</span>
+            <span class="content">
+                <strong>Dialogue Branch Distillation</strong>
+                — Addressing the "unmodifiable branch" pain point in LLM conversations. Exploring distillation and context reconstruction to improve dialogue quality.
+                <span class="zh-hint">对话分支蒸馏 — 针对 LLM 对话中“无法修改错误分支”的痛点，探索蒸馏与上下文重组。</span>
+            </span>
+        </div>
+
+        <div class="idea-item">
+            <span class="num">02</span>
+            <span class="content">
+                <strong>Proactive Alert Scenario Design</strong>
+                — Designing a "medication reminder" feature for elderly users. Exploring event-driven architecture and proactive TTS push.
+                <span class="zh-hint">主动播报场景设计 — 为老年人助手设计“定时服药提醒”，探索事件驱动与 TTS 主动推送。</span>
+            </span>
+        </div>
+
+        <div class="idea-item">
+            <span class="num">03</span>
+            <span class="content">
+                <strong>Edge AI Fault Tolerance</strong>
+                — Lessons learned from the cat feeder project: offline fallback, recognition failure handling, and state recovery strategies.
+                <span class="zh-hint">边缘 AI 容错机制 — 基于猫脸喂食器项目，总结断网、识别失败等场景下的降级与恢复策略。</span>
+            </span>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <span>© 2026 Tingting Gao · Built with ✦ on GitHub Pages</span>
+        <span><a href="mailto:gaott1987@outlook.com">Email</a></span>
+    </footer>
+
+</div>
+
+<!-- ===== Lightbox ===== -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+    <img id="lightboxImage" src="" alt="Lightbox" onclick="event.stopPropagation()" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<script>
+    function openLightbox(src, caption) {
+        const overlay = document.getElementById('lightboxOverlay');
+        const img = document.getElementById('lightboxImage');
+        const cap = document.getElementById('lightboxCaption');
+        img.src = src;
+        cap.textContent = caption || '';
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        const overlay = document.getElementById('lightboxOverlay');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ESC 键关闭
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
+
+</body>
+</html>
