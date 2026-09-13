@@ -128,6 +128,16 @@
             margin-bottom: 0.3rem;
         }
 
+        .exploration-card .tech-note {
+            font-size: 0.85rem;
+            color: #5a4c3e;
+            font-weight: 400;
+            margin-top: 0.1rem;
+            margin-bottom: 0.4rem;
+            border-left: 3px solid #dcd5cc;
+            padding-left: 0.6rem;
+        }
+
         .exploration-card .status {
             font-size: 0.7rem;
             color: #8a7a6a;
@@ -166,6 +176,71 @@
         }
 
         .exploration-card .arch-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-images {
+            margin: 0.8rem 0;
+        }
+
+        .project-images .image-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-images .image-caption {
+            font-size: 0.75rem;
+            color: #8a7a6a;
+            text-align: center;
+            margin-top: 0.3rem;
+        }
+        
+        .project-images .image-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        /* 外层：负责分割线，宽度 100% */
+        .project-images .cat-section {
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #b8a99a;
+            margin-bottom: 1.2rem;
+        }
+        
+        /* 内层：图片行只占 70% 宽 */
+        .project-images .cat-section .cat-row {
+            max-width: 70%;
+        }
+
+        .project-images .cat-section .arch-image {
+            filter: brightness(0.85);
+            transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .project-images .cat-section .arch-image:hover {
+            filter: brightness(1);
+        }
+
+        .project-images .cat-row .arch-image {
+            width: 100%;
+            max-height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .project-images .arch-image {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e8e0d8;
+            cursor: pointer;
+            display: block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .project-images .arch-image:hover {
             transform: scale(1.01);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
@@ -411,11 +486,12 @@
             <div class="exploration-card">
                 <div class="emoji">🧓</div>
                 <h3>Elder Mate</h3>
-                <div class="zh-title">银发伙伴</div>
+                <div class="zh-title">长辈生活助手</div>
+                <div class="tech-note">Edge-based voice & life assistant with ESP32, Home Assistant and LLM</div>
                 <span class="status">Working Prototype <span class="zh-hint">· 可运行原型</span></span>
                 <p class="description">
-                    I built a voice‑controlled assistant to explore how speech can help elderly users stay independent and safe at home.
-                    <span class="zh-summary">我做了一个语音控制助手，探索如何用对话帮助老年人更独立、更安心地生活。</span>
+                    I built a software‑hardware integrated voice assistant to explore how natural conversation and LLM capabilities can help parents handle daily tasks more easily. The system uses an ESP32‑S3‑BOX‑3 as the voice input/output node, connects to XiaoZhi AI (cloud LLM) for intent recognition, and uses the MCP protocol to enable automatic software function calls. The full loop — voice wake‑up, intent recognition, and function calling — is already working. The next step is to implement proactive voice alerts for scheduled reminders.
+                    <span class="zh-summary">我做了一个软硬件集成的语音交互助手，探索如何用自然对话和大模型能力，帮助父母更方便地完成日常事务。系统以 ESP32-S3-BOX-3 作为语音采集与播放节点，接入小智 AI（云端 LLM）完成意图识别，通过 MCP 协议实现软件功能的自动调用。目前已完成语音唤醒、意图识别与功能调用的完整链路，下一步会做主动播报功能，用于定时提醒等场景。</span>
                 </p>
                 <img 
                     class="arch-image" 
@@ -431,21 +507,48 @@
             <!-- 卡片 2：Cat Feeder -->
             <div class="exploration-card">
                 <div class="emoji">🐱</div>
-                <h3>Cat Face Recognition Feeder</h3>
-                <div class="zh-title">猫脸识别喂食器</div>
-                <span class="status">Model Training & Validation <span class="zh-hint">· 模型训练与验证</span></span>
+                <h3>Multi-Cat ID</h3>
+                <div class="zh-title">多猫识别系统</div>
+                <div class="tech-note">Edge-based feline face recognition with YOLOv8, trained and validated on Raspberry Pi</div>
+                <span class="status">Perception Prototype <span class="zh-hint">· 感知层原型</span></span>
                 <p class="description">
-                    I trained a cat‑face recognition model to explore how edge AI can enable personalized feeding — hardware integration is the next step.
-                    <span class="zh-summary">我训练了一个猫脸识别模型，探索边缘 AI 如何实现个性化喂食 —— 硬件集成是下一步。</span>
+                    I trained a multi‑cat recognition model to explore how edge AI can enable personalized feeding. Training data was collected from two sources — a Raspberry Pi camera module and an iPhone. I used the lightweight YOLOv8n vision classification model and ran real‑time tests on a Raspberry Pi. The next step is to build the hardware execution layer for precise feeding.
+                    <span class="zh-summary">我训练了一个多猫识别模型，探索边缘 AI 如何实现个性化喂食。训练数据来自树莓派摄像头模组和 iPhone 两种采集源，采用了 YOLOv8n 视觉分类模型，并在树莓派上完成了实时测试。下一步会做精准投喂的硬件执行部分。</span>
                 </p>
-                <img 
-                    class="arch-image" 
-                    src="" 
-                    alt="Cat Feeder Architecture"
-                    onclick="openLightbox(this.src, 'Cat Feeder · System Architecture')"
-                />
+                <div class="project-images">
+                    <!-- 猫咪照片 -->
+                    <div class="cat-section">
+                        <div class="image-row cat-row">
+                            <div class="image-item">
+                                <img class="arch-image" src="images/cat-1.JPG" alt="Cat-1"
+                                     onclick="openLightbox(this.src, 'DARCY')" />
+                                <div class="image-caption">Cat 1</div>
+                            </div>
+                            <div class="image-item">
+                                <img class="arch-image" src="images/cat-2.JPG" alt="Cat-2"
+                                     onclick="openLightbox(this.src, 'XIAOKE')" />
+                                <div class="image-caption">Cat 2</div>
+                            </div>
+                            <div class="image-item">
+                                <img class="arch-image" src="images/cat-3.JPG" alt="Cat-3"
+                                     onclick="openLightbox(this.src, '1127')" />
+                                <div class="image-caption">Cat 3</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 训练结果 -->
+                    <div class="image-row">
+                        <img class="arch-image" src="images/results.png" alt="Training Loss"
+                             onclick="openLightbox(this.src, 'Multi-Cat ID · Training Loss')" />
+                        <img class="arch-image" src="images/confusion_matrix_normalized.png" alt="Confusion Matrix"
+                             onclick="openLightbox(this.src, 'Multi-Cat ID · Confusion Matrix')" />
+                        <img class="arch-image" src="images/val_batch0_pred.jpg" alt="Prediction Results"
+                             onclick="openLightbox(this.src, 'Multi-Cat ID · Prediction Results')" />
+                    </div>
+                </div>
                 <div class="tags">
-                    <span>YOLOv8</span><span>Python</span>
+                    <span>YOLOv8</span><span>Python</span><span>PyTorch</span><span>Colab</span><span>Raspberry Pi</span>
                 </div>
             </div>
 
@@ -463,29 +566,13 @@
         <div class="idea-item">
             <span class="num">01</span>
             <span class="content">
-                <strong>Dialogue Branch Distillation</strong>
-                — Addressing the "unmodifiable branch" pain point in LLM conversations. Exploring distillation and context reconstruction to improve dialogue quality.
-                <span class="zh-hint">对话分支蒸馏 — 针对 LLM 对话中“无法修改错误分支”的痛点，探索蒸馏与上下文重组。</span>
+                <strong>Thought Tree Manager</strong>
+                — Conversations are linear; thinking is tree-shaped. A node-first tool that lets you organize while you think, with LLMs both driving ideas forward and compressing consecutive nodes into summaries.
+                <span class="zh-hint">思维树管理器 — 对话是线性的，思维是树状的。一个以节点为主干的工具：边推进边整理，LLM 既推动想法向前，也能把连续节点压缩成总结。</span>
             </span>
         </div>
 
-        <div class="idea-item">
-            <span class="num">02</span>
-            <span class="content">
-                <strong>Proactive Alert Scenario Design</strong>
-                — Designing a "medication reminder" feature for elderly users. Exploring event-driven architecture and proactive TTS push.
-                <span class="zh-hint">主动播报场景设计 — 为老年人助手设计“定时服药提醒”，探索事件驱动与 TTS 主动推送。</span>
-            </span>
-        </div>
 
-        <div class="idea-item">
-            <span class="num">03</span>
-            <span class="content">
-                <strong>Edge AI Fault Tolerance</strong>
-                — Lessons learned from the cat feeder project: offline fallback, recognition failure handling, and state recovery strategies.
-                <span class="zh-hint">边缘 AI 容错机制 — 基于猫脸喂食器项目，总结断网、识别失败等场景下的降级与恢复策略。</span>
-            </span>
-        </div>
     </section>
 
     <!-- ===== Footer ===== -->
